@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <title>Pengurus - Laporan</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Optimasi koneksi -->
   <link rel="preconnect" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://www.gstatic.com">
 
   <style>
     body {
@@ -41,6 +45,7 @@
       border:none;
       display:block;
       flex:1;
+      min-height:400px; /* supaya tidak kosong sebelum resize */
     }
   </style>
 </head>
@@ -59,17 +64,17 @@
     <br>3️⃣ Download laporan jika diperlukan.
   </div>
 
-  <!-- Iframe -->
+  <!-- Iframe langsung load -->
   <iframe 
     id="laporanFrame"
     src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=laporan" 
     title="Laporan"
-    loading="lazy">
+    loading="eager">
     Gagal memuat halaman laporan, silakan refresh.
   </iframe>
 
   <!-- Script auto-resize -->
-  <script defer>
+  <script>
     window.addEventListener("message", function(e){
       if (e.data.type === "resize-iframe") {
         document.getElementById("laporanFrame").style.height = e.data.height + "px";
@@ -78,4 +83,3 @@
   </script>
 </body>
 </html>
-
