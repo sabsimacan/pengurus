@@ -2,10 +2,11 @@
 <html lang="id">
 <head>
   <meta charset="UTF-8">
-  <title>Pengurus - Laporan</title>
+  <title>Pengurus - Rekap Laporan</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <link rel="preconnect" href="https://script.google.com">
 
+  <!-- Gunakan CSS ringan, tanpa Font Awesome besar -->
   <style>
     body {
       margin: 0;
@@ -13,6 +14,7 @@
       height: 100vh;
       display: flex;
       flex-direction: column;
+      background:#f5f7fa;
     }
     .navbar {
       background-color:#1976d2;
@@ -25,9 +27,13 @@
       text-decoration:none;
     }
     .info-box {
-      padding: 6px 12px;
+      background:#fff;
+      border-radius:0 0 10px 10px;
+      box-shadow:0 2px 6px rgba(0,0,0,0.08);
+      padding:8px 14px;
       font-size: 11px;
-      line-height: 1.3;
+      line-height: 1.4;
+      margin:0;
     }
     .info-box span {
       font-size: 13px;
@@ -45,10 +51,8 @@
   </style>
 </head>
 <body>
-  <!-- Navbar -->
-  <div class="navbar">
-    <a href="https://sabsimacan.github.io/pengurus/">🏠 Home</a>
-  </div>
+  <!-- Navbar modular (auto load dari file eksternal) -->
+  <div id="navbar"></div>
 
   <!-- Judul & Petunjuk -->
   <div class="info-box">
@@ -62,15 +66,27 @@
   <!-- Iframe -->
   <iframe 
     id="laporanFrame"
-    src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=laporan" 
     title="Laporan"
     loading="lazy">
     Gagal memuat halaman laporan, silakan refresh.
   </iframe>
 
-  <!-- Script auto-resize -->
-  <script defer>
-    window.addEventListener("message", function(e){
+  <!-- Script -->
+  <script>
+    // load navbar hanya 1x (lebih ringan dibanding copy di tiap halaman)
+    fetch("navbar.html")
+      .then(res => res.text())
+      .then(html => document.getElementById("navbar").innerHTML = html)
+      .catch(err => console.warn("Navbar gagal dimuat:", err));
+
+    // load iframe setelah DOM siap → percepat render awal
+    window.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("laporanFrame").src =
+        "https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=laporan";
+    });
+
+    // auto-resize iframe → tidak ada scroll ganda
+    window.addEventListener("message", e => {
       if (e.data.type === "resize-iframe") {
         document.getElementById("laporanFrame").style.height = e.data.height + "px";
       }
