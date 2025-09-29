@@ -60,20 +60,17 @@
   </div>
 
   <!-- Iframe -->
-  <iframe id="laporanFrame" title="Laporan" loading="lazy">
+  <iframe 
+    id="laporanFrame"
+    src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=laporan" 
+    title="Laporan"
+    loading="lazy">
     Gagal memuat halaman laporan, silakan refresh.
   </iframe>
 
-  <!-- Script optimasi -->
-  <script>
-    // pasang src setelah halaman siap → lebih cepat render awal
-    window.addEventListener("DOMContentLoaded", () => {
-      document.getElementById("laporanFrame").src =
-        "https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=laporan";
-    });
-
-    // auto-resize iframe
-    window.addEventListener("message", e => {
+  <!-- Script auto-resize -->
+  <script defer>
+    window.addEventListener("message", function(e){
       if (e.data.type === "resize-iframe") {
         document.getElementById("laporanFrame").style.height = e.data.height + "px";
       }
@@ -81,3 +78,4 @@
   </script>
 </body>
 </html>
+
