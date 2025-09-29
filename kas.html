@@ -1,9 +1,75 @@
-<!DOCTYPE html><html lang="id"><head>
-<meta charset="UTF-8">
-<title>Pengurus - Data Kas</title>
-<meta name="viewport" content="width=device-width,initial-scale=1">
-<link rel="preconnect" href="https://script.google.com">
-<style>body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Helvetica Neue",Arial;height:100vh}.frame{width:100%;height:100%;border:none;display:block}</style>
-</head><body>
-<iframe class="frame" src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=kas" scrolling="no" title="Kas" loading="lazy">Gagal memuat halaman kas, silakan refresh.</iframe>
-</body></html>
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <title>Pengurus - Data Kas</title>
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <link rel="preconnect" href="https://script.google.com">
+  <style>
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .navbar {
+      background-color:#1976d2;
+      padding:4px 12px;
+    }
+    .navbar a {
+      font-size:14px;
+      font-weight:bold;
+      color:#fff;
+      text-decoration:none;
+    }
+    .info-box {
+      padding: 6px 12px;
+      font-size: 11px;
+      line-height: 1.3;
+    }
+    .info-box span {
+      font-size: 13px;
+      font-weight: bold;
+      color:#1976d2;
+      display:block;
+      margin-bottom:2px;
+    }
+    iframe {
+      width:100%;
+      border:none;
+      display:block;
+      flex:1;
+    }
+  </style>
+</head>
+<body>
+  <!-- Navbar -->
+  <div class="navbar">
+    <a href="https://sabsimacan.github.io/pengurus/">🏠 Home</a>
+  </div>
+
+  <!-- Judul & Petunjuk -->
+  <div class="info-box">
+    <span>💰 Data Keuangan Kas Bulanan</span>
+    Ikuti langkah berikut:
+    <br>1️⃣ Klik tombol <b>"Tambah Data Kas"</b> untuk menambah catatan baru.
+    <br>2️⃣ Isi pemasukan atau pengeluaran sesuai bukti transaksi.
+    <br>3️⃣ Klik tombol <b>"Simpan"</b> untuk menyimpan data.
+  </div>
+
+  <!-- Iframe -->
+  <iframe id="appFrame" src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=kas" title="Kas" loading="lazy">
+    Gagal memuat halaman kas, silakan refresh.
+  </iframe>
+
+  <!-- Script auto-resize -->
+  <script defer>
+    window.addEventListener("message", function(e){
+      if (e.data.type === "resize-iframe") {
+        document.getElementById("appFrame").style.height = e.data.height + "px";
+      }
+    });
+  </script>
+</body>
+</html>
