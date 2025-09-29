@@ -4,7 +4,11 @@
   <meta charset="UTF-8">
   <title>Pengurus - Input Data Bulanan</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Preconnect & Prefetch -->
   <link rel="preconnect" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://www.gstatic.com">
 
   <style>
     body {
@@ -36,11 +40,23 @@
       display:block;
       margin-bottom:2px;
     }
+    #frameWrapper {
+      flex:1;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      background:#fafafa;
+    }
+    #frameWrapper p {
+      font-size:12px;
+      color:#555;
+      font-style:italic;
+    }
     iframe {
       width:100%;
       border:none;
-      display:block;
       flex:1;
+      display:none; /* disembunyikan dulu sampai siap */
     }
   </style>
 </head>
@@ -59,20 +75,38 @@
     <br>3️⃣ Klik tombol <b>"Simpan"</b> untuk menyimpan data.
   </div>
 
-  <!-- Iframe -->
-  <iframe 
-    id="appFrame"
-    src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=input" 
-    title="Input"
-    loading="lazy">
-    Gagal memuat halaman input, silakan refresh.
-  </iframe>
+  <!-- Loader + Iframe -->
+  <div id="frameWrapper">
+    <p>⏳ Sedang memuat data...</p>
+    <iframe 
+      id="appFrame"
+      src=""
+      title="Input"
+      loading="lazy">
+      Gagal memuat halaman input, silakan refresh.
+    </iframe>
+  </div>
 
-  <!-- Script auto-resize -->
+  <!-- Script -->
   <script defer>
+    const iframe = document.getElementById("appFrame");
+    const wrapperMsg = document.querySelector("#frameWrapper p");
+
+    // set src setelah halaman siap (lebih smooth)
+    window.addEventListener("DOMContentLoaded", () => {
+      iframe.src = "https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=input";
+    });
+
+    // tampilkan iframe setelah konten siap
+    iframe.onload = () => {
+      iframe.style.display = "block";
+      wrapperMsg.style.display = "none";
+    };
+
+    // auto-resize iframe tinggi
     window.addEventListener("message", function(e){
       if (e.data.type === "resize-iframe") {
-        document.getElementById("appFrame").style.height = e.data.height + "px";
+        iframe.style.height = e.data.height + "px";
       }
     });
   </script>
