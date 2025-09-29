@@ -4,7 +4,12 @@
   <meta charset="UTF-8">
   <title>Pengurus - Data Kas</title>
   <meta name="viewport" content="width=device-width,initial-scale=1">
+
+  <!-- Optimasi koneksi -->
   <link rel="preconnect" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://script.google.com">
+  <link rel="dns-prefetch" href="https://www.gstatic.com">
+
   <style>
     body {
       margin: 0;
@@ -40,6 +45,7 @@
       border:none;
       display:block;
       flex:1;
+      min-height:400px; /* biar gak kosong sebelum auto-resize */
     }
   </style>
 </head>
@@ -58,13 +64,17 @@
     <br>3️⃣ Klik tombol <b>"Simpan"</b> untuk menyimpan data.
   </div>
 
-  <!-- Iframe -->
-  <iframe id="appFrame" src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=kas" title="Kas" loading="lazy">
+  <!-- Iframe langsung load -->
+  <iframe 
+    id="appFrame" 
+    src="https://script.google.com/macros/s/AKfycbykhfd8GkRJ5W87_6NcWHsGjItTeTRiDaCl0lsnT75LiZTWNTcn7PgCcKUqqmk_Ccl3/exec?page=kas" 
+    title="Kas"
+    loading="eager">
     Gagal memuat halaman kas, silakan refresh.
   </iframe>
 
   <!-- Script auto-resize -->
-  <script defer>
+  <script>
     window.addEventListener("message", function(e){
       if (e.data.type === "resize-iframe") {
         document.getElementById("appFrame").style.height = e.data.height + "px";
